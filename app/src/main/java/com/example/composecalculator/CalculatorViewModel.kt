@@ -23,7 +23,7 @@ class CalculatorViewModel :ViewModel(){
     private fun enterSign() {
         if (state.number1.isNotBlank()){
             state = if (state.number1.contains("-"))
-                state.copy(number1 = state.number1.drop(0))
+                state.copy(number1 = state.number1.drop(1))
             else
                 state.copy(number1 = "-" + state.number1)
         }
