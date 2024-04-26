@@ -8,14 +8,24 @@ import androidx.lifecycle.ViewModel
 class CalculatorViewModel :ViewModel(){
     var state by mutableStateOf(CalculatorState())
         private set
-    fun onAction(action: CalculatorActions){
+    fun onAction(action: CalculatorAction){
         when(action){
-            is CalculatorActions.number -> enterNumber(action.number)
-            is CalculatorActions.Decimal -> enterDecimal()
-            is CalculatorActions.Clear -> state = CalculatorState()
-            is CalculatorActions.Operation -> enterOperation(action.operation)
-            is CalculatorActions.Calculate -> performCalculation()
-            is CalculatorActions.Delete -> performDeletion()
+            is CalculatorAction.number -> enterNumber(action.number)
+            is CalculatorAction.Decimal -> enterDecimal()
+            is CalculatorAction.Clear -> state = CalculatorState()
+            is CalculatorAction.Operation -> enterOperation(action.operation)
+            is CalculatorAction.Calculate -> performCalculation()
+            is CalculatorAction.Delete -> performDeletion()
+            is CalculatorAction.Sign -> enterSign()
+        }
+    }
+
+    private fun enterSign() {
+        if (state.number1.isNotBlank()){
+            state = if (state.number1.contains("-"))
+                state.copy(number1 = state.number1.drop(0))
+            else
+                state.copy(number1 = "-" + state.number1)
         }
     }
 
