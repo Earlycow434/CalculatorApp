@@ -44,8 +44,14 @@ class CalculatorViewModel :ViewModel(){
                 is CalculatorOperation.Divide -> number1 / number2
                 null -> return
             }
+
+            val result2 = if(result.toString().endsWith(".0")){
+                result.toString().dropLast(2).take(15)
+            }else {
+                result.toString().take(15)
+            }
             state = state.copy(
-                number1 = result.toString().take(15),
+                number1 = result2,
                 number2 = "",
                 operation = null
             )
